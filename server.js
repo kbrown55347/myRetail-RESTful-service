@@ -1,5 +1,4 @@
 // require express to use it in this file
-const { request } = require('express');
 const express = require('express');
 // initialize express app
 const app = express();
@@ -7,7 +6,7 @@ const app = express();
 const mongo = require("mongodb").MongoClient;
 // running project and MongoDB locally
 const url = "mongodb://localhost:27017";
-// connect to db
+const request = require("request");
 
 let db, products;
 
@@ -30,18 +29,25 @@ mongo.connect(
 // to accept incoming data as JSON
 app.use(express.json());
 
-// GET products route
-
+// GET products and pricing from MongoDB
 app.get('/products/:pid', (req, res) => {
   // convert pid to number to send in query to MongoDB
   let pid = Number(req.params.pid);
   console.log(pid);
-  products.findOne({pid: pid})
-  .then(result => {
-    res.send(result)
-  })
-  .catch(error => console.error(error))
+  products.findOne({ pid: pid })
+    .then(result => {
+      res.send(result)
+    })
+    .catch(error => console.error(error))
+
+  request.get("https://redsky-uat.perf.target.com/redsky_aggregations/v1/redsky/case_study_v1?key=3yUxt7WltYG7MFKPp7uyELi1K40ad2ys&tcin=13860428", (error, response, body) => {
+    // let title = JSON.parse(body);
+    // console.log(title.data.item);
+  });
+
 });
+
+
 
 // create server browsers can connect to
 app.listen(5000, function () {
