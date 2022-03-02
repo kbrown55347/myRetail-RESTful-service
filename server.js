@@ -1,4 +1,5 @@
 // require express to use it in this file
+const { request } = require('express');
 const express = require('express');
 // initialize express app
 const app = express();
@@ -30,19 +31,19 @@ mongo.connect(
 app.use(express.json());
 
 // GET products route
-app.get("/products", (req, res) => {
-  products.find().toArray((err, items) => {
-    if(err) {
-      console.error(err)
-      res.sendStatus(500)
-      return
-    }
-    res.send({products:items})
+
+app.get('/products/:pid', (req, res) => {
+  // convert pid to number to send in query to MongoDB
+  let pid = Number(req.params.pid);
+  console.log(pid);
+  products.findOne({pid: pid})
+  .then(result => {
+    res.send(result)
   })
+  .catch(error => console.error(error))
 });
 
-
 // create server browsers can connect to
-app.listen(5000, function() {
+app.listen(5000, function () {
   console.log('listening on 5000')
 });
