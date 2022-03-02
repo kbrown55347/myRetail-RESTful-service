@@ -34,7 +34,7 @@ app.get("/products", (req, res) => {
   products.find().toArray((err, items) => {
     if(err) {
       console.error(err)
-      res.sendStatus(500).json({err: err})
+      res.sendStatus(500)
       return
     }
     res.send({products:items})
