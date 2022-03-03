@@ -1,13 +1,13 @@
 // require express to use it in this file
 const express = require('express');
-// initialize express app
-const app = express();
 // require in mongoDB
 const mongo = require("mongodb").MongoClient;
 // running project and MongoDB locally
 const url = "mongodb://localhost:27017";
 // require in request
 const request = require("request");
+// define router
+const router = express.Router();
 
 let db, products;
 
@@ -27,11 +27,8 @@ mongo.connect(
   }
 );
 
-// to accept incoming data as JSON
-app.use(express.json());
-
-// GET products and pricing from MongoDB
-app.get('/products/:pid', (req, res) => {
+// products GET route with pid parameter
+router.get('/:pid', (req, res) => {
   // convert pid parameter to number data type to send in query to MongoDB
   let pidParam = Number(req.params.pid);
   // request for data from external API
@@ -55,12 +52,6 @@ app.get('/products/:pid', (req, res) => {
       })
       .catch(error => console.error(error));
   });
-
 });
 
-
-
-// create server browsers can connect to
-app.listen(5000, function () {
-  console.log('listening on 5000')
-});
+module.exports = router;
