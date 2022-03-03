@@ -26,8 +26,5 @@ use myRetail
 
 5. To add a collection to the database and an item to the collection, enter the following command.
 ```
-db.products.insertOne({"pid": 13860428, "name": "The Big Lebowski (Blu-ray) (Widescreen)", "current_price": {"value": 13.49, "currency_code": "USD"}})
-```
-```
 db.products.insertOne({"pid": 13860428, "current_price": {"value": 13.49, "currency_code": "USD"}})
 ```
