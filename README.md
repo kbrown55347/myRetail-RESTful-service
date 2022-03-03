@@ -1,4 +1,4 @@
-# myRetail RESTful service
+# Technical Assessment Case Study - 1. myRetail RESTful service
 
 
 

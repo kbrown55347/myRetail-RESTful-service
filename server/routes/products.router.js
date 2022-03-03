@@ -36,18 +36,19 @@ router.get('/:id', (req, res) => {
     try {
       // parse JSON to be able to access objects from incoming data
       body = JSON.parse(body);
-      // isolate product's title and store in variable
-      let productTitle = body.data.product.item.product_description.title
+      // isolate product's title and tcin and store them in variables
+      let productTitle = body.data.product.item.product_description.title;
+      let productId = Number(body.data.product.tcin);
       // access MongoDB and find item with matching pid
       products.findOne({ pid: idParam })
         .then(result => {
           // reformatting of result object
           delete result._id;
-          result.id = result.pid;
           delete result.pid;
-          // add product title from external API request as key value pair in result object from DB
+          // add product title and tcin (product id) from external API request to result object
+          result.id = productId;
           result.name = productTitle;
-          // rename current_price key to get price and move to end
+          // rename key current_price to move to end in result object
           result.price = result.current_price;
           delete result.current_price
           // send the final result object
