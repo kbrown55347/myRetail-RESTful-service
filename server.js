@@ -6,6 +6,7 @@ const app = express();
 const mongo = require("mongodb").MongoClient;
 // running project and MongoDB locally
 const url = "mongodb://localhost:27017";
+// require in request
 const request = require("request");
 
 let db, products;
@@ -40,10 +41,14 @@ app.get('/products/:pid', (req, res) => {
     })
     .catch(error => console.error(error))
 
-  request.get("https://redsky-uat.perf.target.com/redsky_aggregations/v1/redsky/case_study_v1?key=3yUxt7WltYG7MFKPp7uyELi1K40ad2ys&tcin=13860428", (error, response, body) => {
-    // let title = JSON.parse(body);
-    // console.log(title.data.item);
+  // request for data from external API
+  request.get(`https://redsky-uat.perf.target.com/redsky_aggregations/v1/redsky/case_study_v1?key=3yUxt7WltYG7MFKPp7uyELi1K40ad2ys&tcin=${req.params.pid}`, (error, response, body) => {
+    let title = JSON.parse(body);
+    let productTitle = title.data.product.item.product_description.title
+    console.log(productTitle);
   });
+
+
 
 });
 
