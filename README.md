@@ -28,3 +28,6 @@ use myRetail
 ```
 db.products.insertOne({"pid": 13860428, "name": "The Big Lebowski (Blu-ray) (Widescreen)", "current_price": {"value": 13.49, "currency_code": "USD"}})
 ```
+```
+db.products.insertOne({"pid": 13860428, "current_price": {"value": 13.49, "currency_code": "USD"}})
+```

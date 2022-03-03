@@ -32,23 +32,29 @@ app.use(express.json());
 
 // GET products and pricing from MongoDB
 app.get('/products/:pid', (req, res) => {
-  // convert pid to number to send in query to MongoDB
-  let pid = Number(req.params.pid);
-  console.log(pid);
-  products.findOne({ pid: pid })
-    .then(result => {
-      res.send(result)
-    })
-    .catch(error => console.error(error))
-
+  // convert pid parameter to number data type to send in query to MongoDB
+  let pidParam = Number(req.params.pid);
   // request for data from external API
-  request.get(`https://redsky-uat.perf.target.com/redsky_aggregations/v1/redsky/case_study_v1?key=3yUxt7WltYG7MFKPp7uyELi1K40ad2ys&tcin=${req.params.pid}`, (error, response, body) => {
+  request.get(`https://redsky-uat.perf.target.com/redsky_aggregations/v1/redsky/case_study_v1?key=3yUxt7WltYG7MFKPp7uyELi1K40ad2ys&tcin=${pidParam}`, (error, response, body) => {
+    if (error) {
+      console.error('error in redsky API request', error);
+      return
+    };
+    // parse JSON to be able to access objects from incoming data
     let title = JSON.parse(body);
+    // isolate product's title
     let productTitle = title.data.product.item.product_description.title
-    console.log(productTitle);
+    // console.log(productTitle);
+
+    products.findOne({ pid: pidParam })
+      .then(result => {
+        // add product title as key value pair in result object
+        result.name = productTitle;
+        console.log(result);
+        res.send(result);
+      })
+      .catch(error => console.error(error));
   });
-
-
 
 });
 
