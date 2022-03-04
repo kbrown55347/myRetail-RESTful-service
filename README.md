@@ -76,17 +76,26 @@ db.products.insertOne({"pid": 13860428, "current_price": {"value": 13.49, "curre
 
 ### 4. Run the Application
 
-- To test the application, navigate to localhost:5000/products/13860428. The JSON response shown in the screenshot below will be returned which is a combination of the price information from MongoDB and the product name and id retrieved from the external API. 
+- To run the application, navigate to (localhost:5000/products/13860428). The JSON response shown in the screenshot below will be returned which is a combination of the price information from MongoDB and the product name and id retrieved from the external API. 
 
-![screenshot](result.png)
+![screenshot](images/result.png)
+
+### 5. Testing with Postman
+
+- Download and install [Postman](https://www.postman.com/downloads/) if you do not have it already. 
+- Once installed, open the Postman application. In a new tab, set the request type to GET, and where prompted to add a url, enter in localhost:5000/products/13860428
+- Select Body and raw. In the dropdown menu, change Text to JSON. Click Send.
+- The following is a screenshot from my own test with Postman.
+
+![screenshot](images/postman.png)
 
 
 ## Tech Stack
 
-- I used MongoDB since it meets the NoSQL data store requirement. I hadn't used a NoSQL data store before and when researching more about them, I came across alot of good documentation on MongoDB, so I decided to use it. Plus it uses a JSON-like format to store documents.
-- I chose to use Node, Express and Javascript because those are the programming langauges I am the most familiar with at this time.
-- I also used [Postman](https://www.postman.com/downloads/) for testing the GET route. 
-- I used Git for version control (tracking and managing changes in my code).
-- I used Github to house my project repository to be shared with and accessed by others.
+- I used MongoDB (version 5.0.6) since it meets the NoSQL data store requirement. I hadn't used a NoSQL data store before and when researching more about them, I came across a lot of good documentation on MongoDB so I decided to use it. Plus it uses a JSON-like format to store documents.
+- I chose to use Node (version 17.6.0), Express and Javascript because those are the programming languages I am the most familiar with at this time.
+- I used Postman (version 9.14.9) as my API testing tool. 
+- I used Git (version 2.30.1) for version control (tracking and managing changes in my code).
+- I used Github to host my project so it could be shared with and accessed by others.
 
 
