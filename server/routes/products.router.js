@@ -56,7 +56,7 @@ router.get('/:id', (req, res) => {
           result.price = result.current_price;
           delete result.current_price
           // send the final result object
-          res.send(result);
+          res.send(JSON.stringify(result));
         })
         .catch((error) => {
           console.error('error in MongoDB request', error);
